@@ -173,7 +173,7 @@ the idea of time being essential, though our definition of time has changed.
 
 This definition of time admits a cryptographic trick to allow the possessor
 of some secret knowledge to reverse it. The way this works is to tweak our
-hash function $H$ to make it a \emph{chameleon hash}. A chameleon hash,
+hash function $H$ to make it a \emph{chameleon hash}\cite{krawczyk+rabin1997}. A chameleon hash,
 rather than taking just an input $e$, also takes as input a random value $s$.
 A possessor of some secret ``trapdoor'' information
 will be able to tweak $s$ so as to change $e$ without changing the hash output,
