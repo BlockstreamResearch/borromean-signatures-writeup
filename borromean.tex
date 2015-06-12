@@ -442,13 +442,13 @@ verification keys.
 \begin{enumerate}
 \item Choose a scalar $k_i$ uniformly at random.
 \item Set $e_{i,j^*_i+1} = H(M\| k_iG \| i \| j^*_i)$.
-\item For $j$ such that $j^*_i\leq j< m_i-1$ choose $s_{i,j}$ at random and
+\item For $j$ such that $j^*_i+1\leq j< m_i-1$ choose $s_{i,j}$ at random and
 compute
 \[ e_{i,j+1} = H(M\| s_{i,j}G - e_{i,j}P_{i,j} \| i \| j). \]
 \label{comp1}
 \end{enumerate}
 \item Choose $s_{i,n_j}$ for each $i$ at random and set
-\[ e_0 = H(s_{i,m_j}G - e_{i,m_j}P_{i,j} \| \cdots \| s_{n,m_j}G - e_{n,m_j}P_{i,j}) \]
+\[ e_0 = H(s_{1,m_0-1}G - e_{1,m_0-1}P_{1,0} \| \cdots \| s_{n,m_n-1}G - e_{n,m_n-1}P_{i,m_n-1}) \]
 That is, $e_0$ commits to several $s$-values, one from each ring.
 \item For each $0\leq i\leq n-1$:
 \begin{enumerate}
@@ -480,7 +480,7 @@ verification keys.
 \item For each $0\leq i\leq n -1$,
       for each $0\leq j\leq m_j - 1$, compute $R_{i,j+1} = s_{i,j}G + e_{i,j}P_{i,j}$
 and $e_{i,j+1} = H(M\|R_{i,j+1}\|i\|j+1)$. (As before, we always take $e_{i,0}$ to be $e_0$.)
-\item Compute $e_0' = H(R_{0,m_0} \|\cdots \| R_{n,m_n})$ and return 1 iff $e_0'\stackrel{?}{=} e_0$.
+\item Compute $e_0' = H(R_{0,m_0-1} \|\cdots \| R_{n,m_n-1})$ and return 1 iff $e_0'\stackrel{?}{=} e_0$.
 \end{enumerate}
 
 \subsection{Efficiency comparison}
