@@ -452,7 +452,7 @@ compute
 That is, $e_0$ commits to several $s$-values, one from each ring.
 \item For each $0\leq i\leq n-1$:
 \begin{enumerate}
-\item For $j$ such that $0\leq j< j^*_i-1$ choose $s_{i,j}$ at random and
+\item For $j$ such that $0\leq j< j^*_i$ choose $s_{i,j}$ at random and
 compute
 \[ e_{i,j+1} = H(M\| s_{i,j}G - e_{i,j}P_{i,j}\|i\|j). \]
 where ``$e_{i,0}$'' means $e_0$. Note that this calculation is identical to
@@ -462,7 +462,7 @@ the one in Step $\ref{comp1}$.
 \end{enumerate}
 
 The resulting signature on $m$ consists of
-\[ \sigma = \{ e_0, s_{i, j} : 0\leq i\leq n, 0\leq j\leq m_i \} \]
+\[ \sigma = \{ e_0, s_{i, j} : 0\leq i\leq n-1, 0\leq j\leq m_i - 1 \} \]
 
 \subsubsection{Verification}
 
