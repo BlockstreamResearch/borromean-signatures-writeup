@@ -391,10 +391,10 @@ signature:
 \begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt]
   \node[draw, circle] (e0) at (0in, 0in)     {$e_0$};
-  \node[draw, circle] (e1) at (1.5in, 1in)   {$e_1$};
-  \node[draw, circle] (e2) at (1.5in, -1in)  {$e_2$};
-  \node[draw, circle] (e3) at (-1.5in, 1in)  {$e_3$};
-  \node[draw, circle] (e4) at (-1.5in, -1in) {$e_4$};
+  \node[draw, circle] (e1) at (1.5in, 1in)   {$e_{0,0}$};
+  \node[draw, circle] (e2) at (1.5in, -1in)  {$e_{0,1}$};
+  \node[draw, circle] (e3) at (-1.5in, 1in)  {$e_{1,0}$};
+  \node[draw, circle] (e4) at (-1.5in, -1in) {$e_{1,1}$};
 
   % left circle
   \path
@@ -441,21 +441,23 @@ verification keys.
 \item For each $0\leq i\leq n-1$:
 \begin{enumerate}
 \item Choose a scalar $k_i$ uniformly at random.
-\item Set $e_{i,j^*_i+1} = H(M\| k_iG \| i \| j^*_i)$.
-\item For $j$ such that $j^*_i+1\leq j< m_i-1$ choose $s_{i,j}$ at random and
-compute
-\[ e_{i,j+1} = H(M\| s_{i,j}G - e_{i,j}P_{i,j} \| i \| j). \]
-\label{comp1}
+\item Set $R_{i,j^*} = k_iG$.
+\item For $j$ such that $j^*_i+1\leq j\leq m_i - 1$ choose $s_{i,j}$ at random and
+compute\label{comp1}
+\begin{align*}
+e_{i,j-1} &= H(M\| R_{i,j-1} \| i \| j - 1)	\\
+R_{i,j} &= s_{i,j}G - e_{i,j-1}P_{i,j}
+\end{align*}
 \end{enumerate}
-\item Choose $s_{i,m_i-1}$ for each $i$ at random and set
-\[ e_0 = H(s_{0,m_0-1}G - e_{0,m_0-1}P_{0,m_0-1} \| \cdots \| s_{n-1,m_{n-1}-1}G - e_{n-1,m_{n-1}-1}P_{n-1,m_{n-1}-1}) \]
-That is, $e_0$ commits to several $s$-values, one from each ring.
+\item Finally, set
+\[ e_0 = H(R_{0,m_0-1} \| \cdots \| R_{n-1,m_{n-1}-1}) \]
+That is, $e_0$ commits to several $(s, P)$ pairs, one from each ring.
 \item For each $0\leq i\leq n-1$:
 \begin{enumerate}
-\item For $j$ such that $0\leq j< j^*_i$ choose $s_{i,j}$ at random and
+\item For $j$ such that $0\leq j\leq j^*_i - 1$ choose $s_{i,j}$ at random and
 compute
-\[ e_{i,j+1} = H(M\| s_{i,j}G - e_{i,j}P_{i,j}\|i\|j). \]
-where ``$e_{i,0}$'' means $e_0$. Note that this calculation is identical to
+\[ e_{i,j} = H(M\| s_{i,j}G - e_{i,j-1}P_{i,j}\|i\|j). \]
+with $e_0$ used in place of $e_{i,-1}$. Note that this calculation is identical to
 the one in Step $\ref{comp1}$.
 \item Set $s_{i,j^*_i} = k_i + x_ie_{i,j^*_i}$.
 \end{enumerate}
