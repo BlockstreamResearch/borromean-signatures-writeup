@@ -272,7 +272,7 @@ been determined (this was the first step). He must somehow compute $s_j$
 to fit. Just like with the ordinary Schnorr signature, to do this requires ``going
 back in time'' to choose an $s_j$ value compatible with $e_j$, and just
 like with the ordinary Schnorr signature, this can be done as long as the signer
-knows the discrete logarithm $x_j$ of $P_j$: set $s_j = k_j - x_je_j$. The
+knows the discrete logarithm $x_j$ of $P_j$: set $s_j = k_j + x_je_j$. The
 final signature is $\sigma = \{ e_0, s_0, s_1, \ldots, s_{n-1} \}$.
 
 Since $s_j$ contains the random value $k_j$, it appears uniformly random, just
@@ -368,7 +368,7 @@ multiple graphs.
 It is easy to see how a signature can be structured so that its graph has
 vertices with multiple outgoing edges: each edge $i$ from a vertex labelled
 $(e,x)$ is labelled by a $s_i$ value which is either random (for forward-time
-edges) or equal to $s_i = k_i - xe$ (for backward-time edges). However, to
+edges) or equal to $s_i = k_i + xe$ (for backward-time edges). However, to
 force backward-time edges, we need to have every path be part of a cycle. This
 forces us to also have vertices with multiple \emph{incoming} edges (see vertex
 $e_0$ in Figure \ref{fig2}). This means we need to change our commitment structure.
